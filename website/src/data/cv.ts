@@ -88,8 +88,20 @@ const cvDataBase = {
   ],
   projects: [
     {
+      title: "Obklady Mrlina",
+      description: "Webové rozhraní pro firmu Obklady Mrlina",
+      link: "https://www.obkladymrlina.cz/",
+      badges: [
+        "Git",
+        "React",
+        "TypeScript",
+        "UI/UX",
+        "Webový design",
+      ],
+    },
+    {
       title: "Středoškolský Majáles",
-      description: "Webové rozhraní pro středoškolský Majáles",
+      description: "Webové rozhraní pro akci středoškolský Majáles",
       link: "https://www.stredoskolskymajales.cz/",
       badges: [
         "Git",

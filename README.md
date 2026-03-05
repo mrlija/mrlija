@@ -15,7 +15,8 @@ Jsem student informační technologie se zaměřením na desktopové, mobilní a
 
 ## Projekty
 
-- **[Středoškolský Majáles](https://www.stredoskolskymajales.cz)** - Design a vytvoření webového rozhraní pro středoškolský Majáles.
+- **[Obklady Mrlina](https://www.obkladymrlina.cz)** - Design a vytvoření webového rozhraní pro firmu Obklady Mrlina.
+- **[Středoškolský Majáles](https://www.stredoskolskymajales.cz)** - Design a vytvoření webového rozhraní pro akci středoškolský Majáles.
 
 ## Kontakt
 
