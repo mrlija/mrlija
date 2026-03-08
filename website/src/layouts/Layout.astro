@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import "../styles/print.css";
 
 export interface Props {
   title: string;
@@ -13,7 +14,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImageURL = new URL(image, Astro.site);
 ---
 
-<html lang="en" class="scroll-smooth">
+<html lang="cs" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -34,7 +35,7 @@ const socialImageURL = new URL(image, Astro.site);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImageURL} />
   </head>
-  <body>
+  <body class="site-shell">
     <slot />
   </body>
 </html>

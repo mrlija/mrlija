@@ -1,6 +1,5 @@
 export interface CV {
   name: string;
-  title: string;
   location: string;
   locationLink: string;
   about: string;
@@ -58,12 +57,11 @@ function getAllSkillsFromBadges(cvData: Partial<CV>): string[] {
 
 const cvDataBase = {
   name: "Jakub Mrlina",
-  title: "Student informační technologie",
   location: "Jablonec nad Nisou, Česká Republika",
   locationLink: "https://www.google.com/maps/place/Jablonec+nad+Nisou",
-  about: "Student @ Průmyslovka Liberec",
+  about: "Student informační technologie.",
   summary: "Jsem student informační technologie se zaměřením na desktopové, mobilní a webové aplikace a multimédia na Střední průmyslové škole a Vyšší odborné škole v Liberci. Mám zkušenosti s designem herního prostředí, zajištění kvality, webovým designem a vývojem.",
-  personalWebsiteUrl: "https://www.mrlija.cz",
+  personalWebsiteUrl: "https://mrlija.cz",
   contact: {
     email: "jakub.mrlina@icloud.com",
     social: [

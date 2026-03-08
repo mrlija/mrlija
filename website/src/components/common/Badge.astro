@@ -8,15 +8,16 @@ const { variant = "primary" } = Astro.props;
 
 <div
   class:list={[
-    "inline-flex items-center rounded-md border border-transparent px-2 py-0.5 align-middle text-xs font-mono font-semibold text-nowrap transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+    "inline-flex items-center border px-2.5 py-1 align-middle text-xs font-medium text-nowrap transition-colors duration-150 ease-out",
     {
-      "bg-primary/80 text-primary-foreground hover:bg-primary/60 print:text-[10px]":
+      "border-border bg-secondary text-secondary-foreground":
         variant === "primary",
 
-      "bg-secondary text-secondary-foreground hover:bg-secondary/60 print:px-1 print:py-0.5 print:text-[10px] print:leading-tight":
+      "border-border bg-transparent text-muted-foreground":
         variant === "secondary",
     },
   ]}
+  style="border-radius: 8px"
 >
   <slot />
 </div>

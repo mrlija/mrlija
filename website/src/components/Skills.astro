@@ -5,9 +5,12 @@ import Badge from "./common/Badge.astro";
 const { skills } = CV_DATA;
 ---
 
-<section class="flex min-h-0 flex-col gap-y-3 print:gap-y-1">
-  <h2 class="text-xl font-bold" id="skills-section">Dovednosti</h2>
-  <ul class="flex list-none flex-wrap gap-1 p-0" aria-label="List of skills">
+<section class="section-block">
+  <h2 class="section-heading" id="skills-section">Dovednosti</h2>
+  <ul
+    class="mb-2 mt-2 flex list-none flex-wrap gap-2 p-0"
+    aria-label="List of skills"
+  >
     {
       skills.map((skill) => (
         <li>

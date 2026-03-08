@@ -5,8 +5,8 @@ import Item from "./common/Item.astro";
 const { work } = CV_DATA;
 ---
 
-<section class="flex min-h-0 flex-col gap-y-3 print:gap-y-1">
-  <h2 class="text-xl font-bold" id="work-experience">Pracovní zkušenosti</h2>
+<section class="section-block">
+  <h2 class="section-heading" id="work-experience">Pracovní zkušenosti</h2>
   {
     work.map((item) => (
       <Item

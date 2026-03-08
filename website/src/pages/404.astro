@@ -7,36 +7,21 @@ import ArrowLeft from "../components/icons/ArrowLeft.astro";
   title="404 - Stránka nenalezena"
   description="Stránka, kterou hledáte, neexistuje nebo byla přesunuta."
 >
-  <main class="min-h-screen flex items-center justify-center p-4">
-    <section class="w-full max-w-2xl">
+  <main class="page-frame flex min-h-screen items-center justify-center">
+    <section class="rail-panel w-full max-w-xl p-6 sm:p-8">
       <article role="article">
-        <div class="rounded-lg bg-card text-card-foreground p-6">
-          <div class="flex flex-col items-center space-y-4 text-center">
-            <h1
-              class="text-6xl font-bold tracking-tight text-foreground/20 select-none"
-            >
-              404
-            </h1>
-            <div class="flex flex-col space-y-1.5">
-              <h2 class="text-xl font-semibold leading-none">
-                Stránka nenalezena
-              </h2>
-            </div>
-            <p
-              class="text-pretty font-mono text-sm text-foreground/80 print:text-[12px]"
-            >
-              Stránka, kterou hledáte, neexistuje nebo byla přesunuta.
-            </p>
-            <div class="pt-4">
-              <a
-                class="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                href="/"
-              >
-                <ArrowLeft class="size-4" />
-                Zpět na hlavní stránku
-              </a>
-            </div>
-          </div>
+        <p class="text-sm text-muted-foreground">404</p>
+        <h1 class="mt-3 text-2xl font-semibold text-foreground">
+          Stránka nenalezena
+        </h1>
+        <p class="mt-3 max-w-lg text-sm leading-7 text-muted-foreground">
+          Stránka, kterou hledáte, neexistuje nebo byla přesunuta.
+        </p>
+        <div class="mt-6">
+          <a class="plain-button gap-2" href="/">
+            <ArrowLeft class="size-4" />
+            Zpět na hlavní stránku
+          </a>
         </div>
       </article>
     </section>

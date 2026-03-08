@@ -14,17 +14,15 @@ const { title, description, link, start, end, badges } = Astro.props;
 const hasValidLink = link && link.trim().length > 0;
 ---
 
-<article role="article">
-  <div class="rounded-lg bg-card text-card-foreground py-1 print:py-0">
-    <div class="flex flex-col space-y-1.5 print:space-y-1">
-      <div class="flex items-center justify-between gap-x-2 text-base">
-        <h3
-          class="inline-flex items-center justify-center gap-x-1 font-semibold leading-none print:text-sm"
-        >
+<article class="mt-2" role="article">
+  <div class="item-row">
+    <div>
+      <div class="flex items-start justify-between gap-4">
+        <h3 class="item-title pr-3">
           {
             hasValidLink ? (
               <a
-                class="hover:underline cursor-pointer"
+                class="transition-colors duration-150 ease-out hover:text-primary"
                 href={link}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -40,27 +38,23 @@ const hasValidLink = link && link.trim().length > 0;
         {
           (start || end) && (
             <div
-              class="text-sm tabular-nums text-gray-500"
+              class="item-meta shrink-0 text-right"
               aria-label={`Period: ${start ?? ""} to ${end ?? "Present"}`}
             >
               {start} {start && (end || end === null) && "-"}{" "}
-              {end ?? (start ? "Present" : "")}
+              {end ?? (start ? "Současnost" : "")}
             </div>
           )
         }
       </div>
-    </div>
-    <div class="text-pretty font-mono text-sm text-muted-foreground">
-      <div
-        class="mt-2 text-xm text-foreground/80 print:mt-1 print:text-[12px] text-pretty"
-      >
+      <div class="item-description">
         {description}
       </div>
       {
         badges && badges.length > 0 && (
-          <div class="mt-2">
+          <div class="tag-list">
             <ul
-              class="flex list-none flex-wrap gap-1 p-0"
+              class="flex list-none flex-wrap gap-2 p-0"
               aria-label="Technologies used"
             >
               {badges.map((badge) => (
