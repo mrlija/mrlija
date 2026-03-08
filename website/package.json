@@ -5,11 +5,9 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "astro build && wrangler dev",
     "astro": "astro",
-    "cf:dev": "wrangler dev",
-    "deploy": "astro build && wrangler deploy",
-    "cf:types": "wrangler types"
+    "cf": "wrangler"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",
