@@ -6,7 +6,7 @@ const { contact } = CV_DATA;
 
 <div
   id="command-menu-banner"
-  class="fixed bottom-4 right-4 z-40 cursor-pointer border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-colors duration-150 ease-out hover:bg-accent hover:text-foreground"
+  class="fixed bottom-4 right-4 z-40 hidden cursor-pointer border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-colors duration-150 ease-out hover:bg-accent hover:text-foreground md:block"
   style="border-radius: 10px"
   role="button"
   tabindex="0"
@@ -302,6 +302,8 @@ const { contact } = CV_DATA;
 </div>
 
 <script>
+  const desktopViewport = window.matchMedia("(min-width: 768px)");
+
   class CommandMenu {
     private menu: HTMLElement;
     private backdrop: HTMLElement;
@@ -338,6 +340,10 @@ const { contact } = CV_DATA;
       });
 
       document.addEventListener("keydown", (e) => {
+        if (!desktopViewport.matches) {
+          return;
+        }
+
         if ((e.metaKey || e.ctrlKey) && e.key === "k") {
           e.preventDefault();
           this.toggle();
@@ -389,9 +395,19 @@ const { contact } = CV_DATA;
           this.selectedIndex = Array.from(this.items).indexOf(item);
         });
       });
+
+      desktopViewport.addEventListener("change", (event) => {
+        if (!event.matches && this.isOpen) {
+          this.close();
+        }
+      });
     }
 
     private toggle() {
+      if (!desktopViewport.matches) {
+        return;
+      }
+
       if (this.isOpen) {
         this.close();
       } else {
@@ -400,6 +416,10 @@ const { contact } = CV_DATA;
     }
 
     private open() {
+      if (!desktopViewport.matches) {
+        return;
+      }
+
       this.isOpen = true;
       this.menu.classList.remove("hidden");
       this.input.value = "";
@@ -508,14 +528,12 @@ const { contact } = CV_DATA;
         return;
       }
 
-      let hasVisibleItems = false;
       const groups = new Map<string, boolean>();
 
       this.items.forEach((item) => {
         const text = item.textContent?.toLowerCase() || "";
         if (text.includes(searchQuery)) {
           item.classList.remove("hidden");
-          hasVisibleItems = true;
           const group = item.closest(".command-group") as HTMLElement;
           if (group) {
             groups.set(group.dataset.group || "", true);

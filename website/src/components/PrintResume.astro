@@ -14,7 +14,6 @@ const {
   work,
   projects,
   education,
-  skills,
 } = CV_DATA;
 ---
 
@@ -23,10 +22,10 @@ const {
   id="print-content"
 >
   <section
-    class="mx-auto w-full max-w-2xl space-y-8 bg-white print:space-y-4"
+    class="mx-auto w-full max-w-2xl space-y-8 bg-white"
     aria-label="CV Content Print"
   >
-    <header class="flex items-center justify-between gap-6">
+    <header class="flex items-start justify-between gap-6">
       <div class="flex-1 space-y-1.5">
         <h1 class="text-2xl font-bold" id="cv-name-print">{name}</h1>
         <p class="max-w-md text-pretty font-mono text-sm text-foreground/80 print:text-[12px]">
@@ -51,18 +50,10 @@ const {
           <a class="underline hover:text-foreground/70" href={`mailto:${contact.email}`}>
             {contact.email}
           </a>
-          <span aria-hidden="true">|</span>
-          <a class="underline hover:text-foreground/70" href={contact.social[0].url}>
-            {contact.social[0].url}
-          </a>
-          <span aria-hidden="true">|</span>
-          <a class="underline hover:text-foreground/70" href={contact.social[1].url}>
-            {contact.social[1].url}
-          </a>
         </div>
       </div>
       <span
-        class="relative flex size-28 shrink-0 overflow-hidden rounded-xl"
+        class="relative mt-0.5 flex size-28 shrink-0 self-start overflow-hidden rounded-xl"
         aria-hidden="true"
       >
         <Image
@@ -73,8 +64,8 @@ const {
       </span>
     </header>
 
-    <div class="space-y-8 print:space-y-4">
-      <section class="flex min-h-0 flex-col gap-y-3 print:gap-y-1">
+    <div class="space-y-8">
+      <section class="flex min-h-0 flex-col gap-y-3">
         <h2 class="text-xl font-bold" id="about-section-print">O mně</h2>
         <div
           class="text-pretty font-mono text-sm text-foreground/80 print:text-[12px]"
@@ -84,13 +75,13 @@ const {
         </div>
       </section>
 
-      <section class="flex min-h-0 flex-col gap-y-3 print:gap-y-1">
+      <section class="flex min-h-0 flex-col gap-y-3">
         <h2 class="text-xl font-bold" id="work-experience-print">Pracovní zkušenosti</h2>
         {
           work.map((item) => (
-            <article role="article">
-              <div class="rounded-lg bg-card py-1 text-card-foreground print:py-0">
-                <div class="flex flex-col space-y-1.5 print:space-y-1">
+            <article class="mt-2" role="article">
+              <div class="rounded-lg bg-card py-0 text-card-foreground">
+                <div class="flex flex-col space-y-1.5">
                   <div class="flex items-center justify-between gap-x-2 text-base">
                     <h3 class="inline-flex items-center justify-center gap-x-1 font-semibold leading-none print:text-sm">
                       {
@@ -123,24 +114,9 @@ const {
                   </div>
                 </div>
                 <div class="text-pretty font-mono text-sm text-muted-foreground">
-                  <div class="mt-2 text-pretty text-xm text-foreground/80 print:mt-1 print:text-[12px]">
+                  <div class="mt-0 text-pretty text-xm text-foreground/80 print:text-[12px]">
                     {item.description}
                   </div>
-                  {
-                    item.badges && item.badges.length > 0 && (
-                      <div class="mt-2">
-                        <ul class="flex list-none flex-wrap gap-1 p-0" aria-label="Technologies used">
-                          {item.badges.map((badge) => (
-                            <li>
-                              <div class="inline-flex items-center rounded-md bg-secondary px-2 py-0.5 align-middle text-xs font-mono font-semibold text-nowrap text-secondary-foreground print:px-1 print:py-0.5 print:text-[10px] print:leading-tight">
-                                {badge}
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )
-                  }
                 </div>
               </div>
             </article>
@@ -148,13 +124,13 @@ const {
         }
       </section>
 
-      <section class="flex min-h-0 flex-col gap-y-3 print:gap-y-1">
+      <section class="flex min-h-0 flex-col gap-y-3">
         <h2 class="text-xl font-bold" id="projects-print">Projekty</h2>
         {
           projects.map((item) => (
-            <article role="article">
-              <div class="rounded-lg bg-card py-1 text-card-foreground print:py-0">
-                <div class="flex flex-col space-y-1.5 print:space-y-1">
+            <article class="mt-2" role="article">
+              <div class="rounded-lg bg-card py-0 text-card-foreground">
+                <div class="flex flex-col space-y-1.5">
                   <div class="flex items-center justify-between gap-x-2 text-base">
                     <h3 class="inline-flex items-center justify-center gap-x-1 font-semibold leading-none print:text-sm">
                       {
@@ -187,24 +163,9 @@ const {
                   </div>
                 </div>
                 <div class="text-pretty font-mono text-sm text-muted-foreground">
-                  <div class="mt-2 text-pretty text-xm text-foreground/80 print:mt-1 print:text-[12px]">
+                  <div class="mt-0 text-pretty text-xm text-foreground/80 print:text-[12px]">
                     {item.description}
                   </div>
-                  {
-                    item.badges && item.badges.length > 0 && (
-                      <div class="mt-2">
-                        <ul class="flex list-none flex-wrap gap-1 p-0" aria-label="Technologies used">
-                          {item.badges.map((badge) => (
-                            <li>
-                              <div class="inline-flex items-center rounded-md bg-secondary px-2 py-0.5 align-middle text-xs font-mono font-semibold text-nowrap text-secondary-foreground print:px-1 print:py-0.5 print:text-[10px] print:leading-tight">
-                                {badge}
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )
-                  }
                 </div>
               </div>
             </article>
@@ -212,13 +173,13 @@ const {
         }
       </section>
 
-      <section class="flex min-h-0 flex-col gap-y-3 print:gap-y-1">
+      <section class="flex min-h-0 flex-col gap-y-3">
         <h2 class="text-xl font-bold" id="education-section-print">Vzdělání</h2>
         {
           education.map((item) => (
-            <article role="article">
-              <div class="rounded-lg bg-card py-1 text-card-foreground print:py-0">
-                <div class="flex flex-col space-y-1.5 print:space-y-1">
+            <article class="mt-2" role="article">
+              <div class="rounded-lg bg-card py-0 text-card-foreground">
+                <div class="flex flex-col space-y-1.5">
                   <div class="flex items-center justify-between gap-x-2 text-base">
                     <h3 class="inline-flex items-center justify-center gap-x-1 font-semibold leading-none print:text-sm">
                       {
@@ -251,44 +212,14 @@ const {
                   </div>
                 </div>
                 <div class="text-pretty font-mono text-sm text-muted-foreground">
-                  <div class="mt-2 text-pretty text-xm text-foreground/80 print:mt-1 print:text-[12px]">
+                  <div class="mt-0 text-pretty text-xm text-foreground/80 print:text-[12px]">
                     {item.description}
                   </div>
-                  {
-                    item.badges && item.badges.length > 0 && (
-                      <div class="mt-2">
-                        <ul class="flex list-none flex-wrap gap-1 p-0" aria-label="Technologies used">
-                          {item.badges.map((badge) => (
-                            <li>
-                              <div class="inline-flex items-center rounded-md bg-secondary px-2 py-0.5 align-middle text-xs font-mono font-semibold text-nowrap text-secondary-foreground print:px-1 print:py-0.5 print:text-[10px] print:leading-tight">
-                                {badge}
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )
-                  }
                 </div>
               </div>
             </article>
           ))
         }
-      </section>
-
-      <section class="flex min-h-0 flex-col gap-y-3 print:gap-y-1">
-        <h2 class="text-xl font-bold" id="skills-section-print">Dovednosti</h2>
-        <ul class="flex list-none flex-wrap gap-1 p-0" aria-label="List of skills">
-          {
-            skills.map((skill) => (
-              <li>
-                <div class="inline-flex items-center rounded-md bg-primary/80 px-2 py-0.5 align-middle text-xs font-mono font-semibold text-nowrap text-primary-foreground print:text-[10px]">
-                  {skill}
-                </div>
-              </li>
-            ))
-          }
-        </ul>
       </section>
     </div>
   </section>
