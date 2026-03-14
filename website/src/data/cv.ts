@@ -4,7 +4,6 @@ export interface CV {
   locationLink: string;
   about: string;
   summary: string;
-  personalWebsiteUrl: string;
   contact: Contact;
   work: Work[];
   projects: Projects[];
@@ -13,13 +12,15 @@ export interface CV {
 }
 
 export interface Contact {
-  email: string;
-  social: Social[];
+  links: ContactLink[];
 }
 
-export interface Social {
+export type ContactLinkKind = "website" | "email" | "social";
+
+export interface ContactLink {
   name: string;
   url: string;
+  kind: ContactLinkKind;
 }
 
 export interface Item {
@@ -55,18 +56,18 @@ function getAllSkillsFromBadges(cvData: Partial<CV>): string[] {
   return Array.from(allBadges).sort();
 }
 
-const cvDataBase = {
+const cvDataBase: Omit<CV, "skills"> = {
   name: "Jakub Mrlina",
   location: "Jablonec nad Nisou, Česká Republika",
   locationLink: "https://www.google.com/maps/place/Jablonec+nad+Nisou",
   about: "Student informační technologie.",
   summary: "Jsem student informační technologie se zaměřením na desktopové, mobilní a webové aplikace a multimédia na Střední průmyslové škole a Vyšší odborné škole v Liberci. Mám zkušenosti s designem herního prostředí, zajištění kvality, webovým designem a vývojem.",
-  personalWebsiteUrl: "https://mrlija.cz",
   contact: {
-    email: "jakub.mrlina@icloud.com",
-    social: [
-      { name: "GitHub", url: "https://github.com/mrlija" },
-      { name: "LinkedIn", url: "https://linkedin.com/in/mrlija" },
+    links: [
+      { name: "Osobní web", url: "https://mrlija.cz", kind: "website" },
+      { name: "Email", url: "mailto:jakub.mrlina@icloud.com", kind: "email" },
+      { name: "GitHub", url: "https://github.com/mrlija", kind: "social" },
+      { name: "LinkedIn", url: "https://linkedin.com/in/mrlija", kind: "social" },
     ],
   },
   work: [

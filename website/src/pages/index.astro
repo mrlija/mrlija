@@ -10,13 +10,38 @@ import Skills from "../components/Skills.astro";
 import Projects from "../components/Projects.astro";
 import PrintResume from "../components/PrintResume.astro";
 
-const { name, about } = CV_DATA;
+const { name, about, contact, location } = CV_DATA;
+
+const websiteLink = contact.links.find((link) => link.kind === "website");
+const emailLink = contact.links.find((link) => link.kind === "email");
+const socialLinks = contact.links.filter((link) => link.kind === "social");
+
+const personStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name,
+  description: about,
+  url: websiteLink?.url,
+  email: emailLink?.url,
+  sameAs: [websiteLink?.url, ...socialLinks.map((social) => social.url)].filter(
+    Boolean,
+  ),
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: location,
+    addressCountry: "CZ",
+  },
+};
 ---
 
-<Layout title={`${name}`} description={about}>
+<Layout
+  title={`${name}`}
+  description={about}
+  structuredData={personStructuredData}
+>
   <CommandMenu />
   <main class="page-frame print:hidden" id="main-content">
-    <section class="page-grid" aria-label="CV Content">
+    <section class="page-grid" aria-label="Obsah životopisu">
       <Header />
       <div class="rail-panel px-5 py-6 sm:px-7 sm:py-7">
         <Summary />

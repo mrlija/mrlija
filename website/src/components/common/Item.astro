@@ -26,7 +26,7 @@ const hasValidLink = link && link.trim().length > 0;
                 href={link}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`${title} link`}
+                aria-label={`Otevřít odkaz: ${title}`}
               >
                 {title}
               </a>
@@ -39,7 +39,7 @@ const hasValidLink = link && link.trim().length > 0;
           (start || end) && (
             <div
               class="item-meta shrink-0 text-right"
-              aria-label={`Period: ${start ?? ""} to ${end ?? "Present"}`}
+              aria-label={`Období: ${start ?? ""} až ${end ?? "Současnost"}`}
             >
               {start} {start && (end || end === null) && "-"}{" "}
               {end ?? (start ? "Současnost" : "")}
@@ -55,7 +55,7 @@ const hasValidLink = link && link.trim().length > 0;
           <div class="tag-list">
             <ul
               class="flex list-none flex-wrap gap-2 p-0"
-              aria-label="Technologies used"
+              aria-label="Použité technologie"
             >
               {badges.map((badge) => (
                 <li>

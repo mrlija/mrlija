@@ -8,7 +8,40 @@ import Globe from "./icons/Globe.astro";
 import { Image } from "astro:assets";
 import avatarImage from "../assets/avatar.jpeg";
 
-const { name, personalWebsiteUrl, contact, location, locationLink } = CV_DATA;
+const { name, contact, location, locationLink } = CV_DATA;
+
+const getDisplayUrl = (url: string, kind: string) => {
+  if (kind === "email") {
+    return url.replace("mailto:", "");
+  }
+
+  return url.replace("https://", "");
+};
+
+const getSocialIconKey = (url: string): "github" | "linkedin" | "globe" => {
+  try {
+    const host = new URL(url).hostname.toLowerCase();
+    if (host.includes("github")) {
+      return "github";
+    }
+    if (host.includes("linkedin")) {
+      return "linkedin";
+    }
+  } catch {}
+
+  return "globe";
+};
+
+const getIconType = (
+  url: string,
+  kind: string,
+): "email" | "github" | "linkedin" | "globe" => {
+  if (kind === "email") {
+    return "email";
+  }
+
+  return getSocialIconKey(url);
+};
 ---
 
 <header class="w-full lg:sticky lg:top-8 lg:self-start">
@@ -38,7 +71,7 @@ const { name, personalWebsiteUrl, contact, location, locationLink } = CV_DATA;
             href={locationLink}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`Location: ${location}`}
+            aria-label={`Lokace: ${location}`}
           >
             <span>{location}</span>
           </a>
@@ -47,52 +80,42 @@ const { name, personalWebsiteUrl, contact, location, locationLink } = CV_DATA;
     </div>
 
     <div class="border-t border-border">
-      <a
-        class="contact-link"
-        href={personalWebsiteUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Globe class="size-4" />
-        <span class="min-w-0 truncate"
-          >{personalWebsiteUrl.replace("https://", "")}</span
-        >
-      </a>
-      <a class="contact-link" href={`mailto:${contact.email}`}>
-        <Email class="size-4" />
-        <span class="min-w-0 truncate">{contact.email}</span>
-      </a>
-      <a
-        class="contact-link"
-        href={contact.social[0].url}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <GitHub class="size-4" />
-        <span class="min-w-0 truncate"
-          >{contact.social[0].url.replace("https://", "")}</span
-        >
-      </a>
-      <a
-        class="contact-link"
-        href={contact.social[1].url}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <LinkedIn class="size-4" />
-        <span class="min-w-0 truncate"
-          >{contact.social[1].url.replace("https://", "")}</span
-        >
-      </a>
+      {
+        contact.links.map((link) => (
+          <a
+            class="contact-link"
+            href={link.url}
+            target={link.kind === "email" ? undefined : "_blank"}
+            rel={link.kind === "email" ? undefined : "noopener noreferrer"}
+            aria-label={
+              link.kind === "social" ? `${link.name} profil` : link.name
+            }
+          >
+            {getIconType(link.url, link.kind) === "email" ? (
+              <Email class="size-4" />
+            ) : getIconType(link.url, link.kind) === "github" ? (
+              <GitHub class="size-4" />
+            ) : getIconType(link.url, link.kind) === "linkedin" ? (
+              <LinkedIn class="size-4" />
+            ) : (
+              <Globe class="size-4" />
+            )}
+            <span class="min-w-0 truncate">
+              {getDisplayUrl(link.url, link.kind)}
+            </span>
+          </a>
+        ))
+      }
     </div>
 
     <div
       class="hidden border-t border-border p-5 text-sm text-muted-foreground"
     >
-      <p>{personalWebsiteUrl}</p>
-      <p class="mt-1">{contact.email}</p>
-      <p class="mt-1">{contact.social[0].url}</p>
-      <p class="mt-1">{contact.social[1].url}</p>
+      {
+        contact.links.map((link) => (
+          <p class="mt-1">{getDisplayUrl(link.url, link.kind)}</p>
+        ))
+      }
     </div>
   </div>
 </header>

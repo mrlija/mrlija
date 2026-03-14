@@ -6,9 +6,15 @@ export interface Props {
   title: string;
   description: string;
   image?: string;
+  structuredData?: unknown;
 }
 
-const { title, description, image = "/og-image.png" } = Astro.props;
+const {
+  title,
+  description,
+  image = "/og-image.png",
+  structuredData,
+} = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImageURL = new URL(image, Astro.site);
@@ -22,20 +28,32 @@ const socialImageURL = new URL(image, Astro.site);
     <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="author" content="Jakub Mrlina" />
+    <meta name="robots" content="index,follow" />
     <link rel="canonical" href={canonicalURL.href} />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content={socialImageURL} />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:image" content={socialImageURL.href} />
     <meta property="og:type" content="profile" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={socialImageURL} />
+    <meta name="twitter:image" content={socialImageURL.href} />
+    {
+      structuredData && (
+        <script
+          is:inline
+          type="application/ld+json"
+          set:html={JSON.stringify(structuredData)}
+        />
+      )
+    }
   </head>
   <body class="site-shell">
+    <a href="#main-content" class="skip-link">Přeskočit na hlavní obsah</a>
     <slot />
   </body>
 </html>

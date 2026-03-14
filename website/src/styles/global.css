@@ -96,6 +96,11 @@
 }
 
 @layer components {
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-secondary focus:px-3 focus:py-2 focus:text-sm focus:text-foreground focus:outline-none focus:ring-2 focus:ring-ring;
+    border-radius: 10px;
+  }
+
   .site-shell {
     @apply min-h-screen bg-background text-foreground;
   }
@@ -146,12 +151,12 @@
   }
 
   .tag {
-    @apply inline-flex items-center border border-border bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground;
+    @apply inline-flex items-center border border-border bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring;
     border-radius: 8px;
   }
 
   .contact-link {
-    @apply flex items-center gap-3 border-t border-border px-4 py-3 text-sm text-muted-foreground transition-colors duration-150 ease-out first:border-t-0 hover:bg-accent hover:text-foreground;
+    @apply flex items-center gap-3 border-t border-border px-4 py-3 text-sm text-muted-foreground transition-colors duration-150 ease-out first:border-t-0 hover:bg-accent hover:text-foreground focus-visible:relative focus-visible:z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring;
   }
 
   .plain-button {

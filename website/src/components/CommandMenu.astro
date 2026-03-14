@@ -2,14 +2,15 @@
 import { CV_DATA } from "../data/cv";
 
 const { contact } = CV_DATA;
+const emailLink = contact.links.find((link) => link.kind === "email");
+const emailAddress = emailLink ? emailLink.url.replace("mailto:", "") : "";
 ---
 
-<div
+<button
   id="command-menu-banner"
-  class="fixed bottom-4 right-4 z-40 hidden cursor-pointer border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-colors duration-150 ease-out hover:bg-accent hover:text-foreground md:block"
+  class="fixed bottom-4 right-4 z-40 hidden cursor-pointer border border-border bg-card px-3 py-2 text-sm text-muted-foreground transition-colors duration-150 ease-out hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:block"
   style="border-radius: 10px"
-  role="button"
-  tabindex="0"
+  type="button"
   aria-label="Otevřít příkazové menu"
 >
   <div class="flex items-center gap-2">
@@ -22,13 +23,13 @@ const { contact } = CV_DATA;
     </svg>
     <span class="hidden sm:inline">Menu</span>
     <kbd
-      class="border border-border bg-secondary px-2 py-0.5 text-xs text-foreground"
+      class="hidden border border-border bg-secondary px-2 py-0.5 text-xs text-foreground sm:inline-flex"
       style="border-radius: 6px"
     >
       <span id="command-menu-shortcut">⌘ + K</span>
     </kbd>
   </div>
-</div>
+</button>
 
 <div id="command-menu" class="fixed inset-0 z-50 hidden">
   <div class="fixed inset-0 bg-black/60" id="command-menu-backdrop"></div>
@@ -61,9 +62,7 @@ const { contact } = CV_DATA;
           class="flex-1 border-0 bg-transparent px-4 py-4 text-foreground placeholder:text-muted-foreground outline-none"
           placeholder="Zadejte příkaz nebo hledejte..."
           autocomplete="off"
-          role="combobox"
-          aria-expanded="true"
-          aria-controls="command-menu-list"
+          aria-label="Vyhledat příkaz v menu"
         />
         <kbd
           class="hidden border border-border bg-secondary px-2 py-1 text-xs text-foreground sm:inline-block"
@@ -73,11 +72,7 @@ const { contact } = CV_DATA;
         </kbd>
       </div>
 
-      <div
-        class="max-h-[400px] overflow-y-auto p-2"
-        id="command-menu-list"
-        role="listbox"
-      >
+      <div class="max-h-[400px] overflow-y-auto p-2" id="command-menu-list">
         <div class="command-group" data-group="navigation">
           <div class="px-2 py-1.5 text-xs font-medium text-muted-foreground">
             Navigace
@@ -88,8 +83,8 @@ const { contact } = CV_DATA;
             data-action="scroll"
             data-target="about-section"
             data-shortcut-code="Digit1"
-            role="option"
             aria-keyshortcuts="1"
+            aria-label="Přejít na sekci O mně"
           >
             <div class="flex items-center justify-between gap-3">
               <div class="flex items-center gap-3">
@@ -122,8 +117,8 @@ const { contact } = CV_DATA;
             data-action="scroll"
             data-target="work-experience"
             data-shortcut-code="Digit2"
-            role="option"
             aria-keyshortcuts="2"
+            aria-label="Přejít na sekci Pracovní zkušenosti"
           >
             <div class="flex items-center justify-between gap-3">
               <div class="flex items-center gap-3">
@@ -158,8 +153,8 @@ const { contact } = CV_DATA;
             data-action="scroll"
             data-target="projects"
             data-shortcut-code="Digit3"
-            role="option"
             aria-keyshortcuts="3"
+            aria-label="Přejít na sekci Projekty"
           >
             <div class="flex items-center justify-between gap-3">
               <div class="flex items-center gap-3">
@@ -192,8 +187,8 @@ const { contact } = CV_DATA;
             data-action="scroll"
             data-target="education-section"
             data-shortcut-code="Digit4"
-            role="option"
             aria-keyshortcuts="4"
+            aria-label="Přejít na sekci Vzdělání"
           >
             <div class="flex items-center justify-between gap-3">
               <div class="flex items-center gap-3">
@@ -231,8 +226,8 @@ const { contact } = CV_DATA;
             data-action="scroll"
             data-target="skills-section"
             data-shortcut-code="Digit5"
-            role="option"
             aria-keyshortcuts="5"
+            aria-label="Přejít na sekci Dovednosti"
           >
             <div class="flex items-center justify-between gap-3">
               <div class="flex items-center gap-3">
@@ -271,10 +266,10 @@ const { contact } = CV_DATA;
             class="command-item w-full px-3 py-2 text-left text-foreground hover:bg-accent"
             style="border-radius: 8px"
             data-action="mailto"
-            data-email={contact.email}
+            data-email={emailAddress}
             data-shortcut-code="Digit6"
-            role="option"
             aria-keyshortcuts="6"
+            aria-label="Otevřít emailového klienta"
           >
             <div class="flex items-center justify-between gap-3">
               <div class="flex items-center gap-3">
@@ -308,8 +303,8 @@ const { contact } = CV_DATA;
             style="border-radius: 8px"
             data-action="print"
             data-shortcut-code="Digit7"
-            role="option"
             aria-keyshortcuts="7"
+            aria-label="Vytisknout životopis"
           >
             <div class="flex items-center justify-between gap-3">
               <div class="flex items-center gap-3">
@@ -347,6 +342,14 @@ const { contact } = CV_DATA;
           Žádné výsledky.
         </div>
 
+        <p
+          id="command-menu-live-region"
+          class="sr-only"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+        </p>
+
         <div class="mt-4 border-t border-border px-2 pb-1.5 pt-3">
           <div
             class="flex items-center justify-between px-2 text-xs text-muted-foreground"
@@ -382,7 +385,7 @@ const { contact } = CV_DATA;
 </div>
 
 <script>
-  const desktopViewport = window.matchMedia("(min-width: 768px)");
+  const tabletViewport = window.matchMedia("(min-width: 640px)");
 
   class CommandMenu {
     private menu: HTMLElement;
@@ -391,6 +394,7 @@ const { contact } = CV_DATA;
     private banner: HTMLElement;
     private input: HTMLInputElement;
     private emptyState: HTMLElement;
+    private liveRegion: HTMLElement;
     private items: NodeListOf<HTMLElement>;
     private selectedIndex: number = 0;
     private isOpen: boolean = false;
@@ -405,6 +409,7 @@ const { contact } = CV_DATA;
         "command-menu-input",
       )! as HTMLInputElement;
       this.emptyState = document.getElementById("command-menu-empty-state")!;
+      this.liveRegion = document.getElementById("command-menu-live-region")!;
       this.items = document.querySelectorAll(".command-item");
 
       this.init();
@@ -423,7 +428,7 @@ const { contact } = CV_DATA;
       });
 
       document.addEventListener("keydown", (e) => {
-        if (!desktopViewport.matches) {
+        if (!tabletViewport.matches) {
           return;
         }
 
@@ -488,7 +493,7 @@ const { contact } = CV_DATA;
         });
       });
 
-      desktopViewport.addEventListener("change", (event) => {
+      tabletViewport.addEventListener("change", (event) => {
         if (!event.matches && this.isOpen) {
           this.close();
         }
@@ -496,7 +501,7 @@ const { contact } = CV_DATA;
     }
 
     private toggle() {
-      if (!desktopViewport.matches) {
+      if (!tabletViewport.matches) {
         return;
       }
 
@@ -508,7 +513,7 @@ const { contact } = CV_DATA;
     }
 
     private open() {
-      if (!desktopViewport.matches) {
+      if (!tabletViewport.matches) {
         return;
       }
 
@@ -676,6 +681,7 @@ const { contact } = CV_DATA;
         this.emptyState.classList.add("hidden");
         this.selectedIndex = 0;
         this.updateSelection();
+        this.liveRegion.textContent = "Zobrazeny všechny příkazy.";
         return;
       }
 
@@ -709,41 +715,61 @@ const { contact } = CV_DATA;
         this.getVisibleItems().length > 0,
       );
 
+      const visibleItemsCount = this.getVisibleItems().length;
+      this.liveRegion.textContent =
+        visibleItemsCount > 0
+          ? `Nalezeno ${visibleItemsCount} výsledků.`
+          : "Žádné výsledky.";
+
       this.selectedIndex = 0;
       this.updateSelection();
     }
   }
 
-  new CommandMenu();
+  let commandMenuInitialized = false;
 
-  const shortcutLabel = document.getElementById("command-menu-shortcut");
-  const commandItemShortcuts = document.querySelectorAll(
-    ".command-item-shortcut",
-  );
-  const userAgentData = (
-    navigator as Navigator & { userAgentData?: { platform?: string } }
-  ).userAgentData;
-  const platformInfo = userAgentData?.platform ?? navigator.userAgent;
-  const isMac = /mac/i.test(platformInfo);
-
-  const formatShortcutLabel = (shortcutCode: string) => {
-    return shortcutCode.startsWith("Digit")
-      ? shortcutCode.replace("Digit", "")
-      : shortcutCode.replace("Key", "");
-  };
-
-  if (shortcutLabel) {
-    shortcutLabel.textContent = isMac ? "⌘ + K" : "Ctrl + K";
-  }
-
-  commandItemShortcuts.forEach((shortcutElement) => {
-    const item = shortcutElement.closest(".command-item") as HTMLElement | null;
-    const shortcutCode = item?.dataset.shortcutCode;
-
-    if (!shortcutCode) {
+  const initializeCommandMenuForTablet = () => {
+    if (!tabletViewport.matches || commandMenuInitialized) {
       return;
     }
 
-    shortcutElement.textContent = formatShortcutLabel(shortcutCode);
-  });
+    new CommandMenu();
+    commandMenuInitialized = true;
+
+    const shortcutLabel = document.getElementById("command-menu-shortcut");
+    const commandItemShortcuts = document.querySelectorAll(
+      ".command-item-shortcut",
+    );
+    const userAgentData = (
+      navigator as Navigator & { userAgentData?: { platform?: string } }
+    ).userAgentData;
+    const platformInfo = userAgentData?.platform ?? navigator.userAgent;
+    const isMac = /mac/i.test(platformInfo);
+
+    const formatShortcutLabel = (shortcutCode: string) => {
+      return shortcutCode.startsWith("Digit")
+        ? shortcutCode.replace("Digit", "")
+        : shortcutCode.replace("Key", "");
+    };
+
+    if (shortcutLabel) {
+      shortcutLabel.textContent = isMac ? "⌘ + K" : "Ctrl + K";
+    }
+
+    commandItemShortcuts.forEach((shortcutElement) => {
+      const item = shortcutElement.closest(
+        ".command-item",
+      ) as HTMLElement | null;
+      const shortcutCode = item?.dataset.shortcutCode;
+
+      if (!shortcutCode) {
+        return;
+      }
+
+      shortcutElement.textContent = formatShortcutLabel(shortcutCode);
+    });
+  };
+
+  initializeCommandMenuForTablet();
+  tabletViewport.addEventListener("change", initializeCommandMenuForTablet);
 </script>
