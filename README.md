@@ -1,7 +1,7 @@
 <a id="readme-top"></a>
 
 <div align="center">
-    <h1 align="center"><a href="https://www.mrlija.cz">Jakub Mrlina</a></h3>
+    <h1 align="center"><a href="https://www.mrlija.cz">Jakub Mrlina</a></h1>
     <p>Student informační technologie na Střední průmyslové škole a Vyšší odborné škole v Liberci</p>
 </div>
 
